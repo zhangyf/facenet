@@ -43,6 +43,10 @@ from tensorflow.python.ops import data_flow_ops
 
 from six.moves import xrange  # @UnresolvedImport
 
+import os
+os.environ["CUDA_VERSION_DEVICE"] = '0'
+os.environ["CUDA_VISIBLE_DEVICES"] = '0'
+
 def main(args):
   
     network = importlib.import_module(args.model_def)
@@ -116,6 +120,7 @@ def main(args):
     
                 #pylint: disable=no-member
                 image.set_shape((args.image_size, args.image_size, 3))
+                image = tf.to_float(image)
                 images.append(tf.image.per_image_standardization(image))
             images_and_labels.append([images, label])
     
@@ -172,7 +177,8 @@ def main(args):
 
             if args.pretrained_model:
                 print('Restoring pretrained model: %s' % args.pretrained_model)
-                saver.restore(sess, os.path.expanduser(args.pretrained_model))
+                facenet.load_model(args.pretrained_model)
+#                saver.restore(sess, os.path.expanduser(args.pretrained_model))
 
             # Training and validation loop
             epoch = 0
