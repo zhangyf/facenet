@@ -25,7 +25,7 @@
 #	--validate_every_n_epochs 5 \
 #	--prelogits_norm_loss_factor 5e-4 1>nohup.out 2>&1 &
 
-python3 -u src/train_tripletloss.py \
+nohup python3 -u src/train_tripletloss.py \
 	--logs_base_dir ~/workspace/facenet/ \
 	--models_base_dir ~/workspace/facenet/models/ \
 	--data_dir ~/workspace/facenet/data/chinese_faces/faces_chinese_500_160/ \
@@ -41,7 +41,7 @@ python3 -u src/train_tripletloss.py \
 	--random_flip \
 	--learning_rate_schedule_file data/learning_rate_retrain_tripletloss.txt \
 	--weight_decay 5e-4 \
-	--embedding_size 512 
+	--embedding_size 512 1>stdout.out 2>stderr.out &
 
 
 
