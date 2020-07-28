@@ -29,13 +29,13 @@ import tensorflow.contrib.slim as slim
 # Inception-Resnet-A
 def block35(net, scale=1.0, activation_fn=tf.nn.relu, scope=None, reuse=None):
     """Builds the 35x35 resnet block."""
-    with tf.variable_scope(scope, 'Block35', [net], reuse=reuse):
-        with tf.variable_scope('Branch_0'):
+    with tf.compat.v1.variable_scope(scope, 'Block35', [net], reuse=reuse):
+        with tf.compat.v1.variable_scope('Branch_0'):
             tower_conv = slim.conv2d(net, 32, 1, scope='Conv2d_1x1')
-        with tf.variable_scope('Branch_1'):
+        with tf.compat.v1.variable_scope('Branch_1'):
             tower_conv1_0 = slim.conv2d(net, 32, 1, scope='Conv2d_0a_1x1')
             tower_conv1_1 = slim.conv2d(tower_conv1_0, 32, 3, scope='Conv2d_0b_3x3')
-        with tf.variable_scope('Branch_2'):
+        with tf.compat.v1.variable_scope('Branch_2'):
             tower_conv2_0 = slim.conv2d(net, 32, 1, scope='Conv2d_0a_1x1')
             tower_conv2_1 = slim.conv2d(tower_conv2_0, 32, 3, scope='Conv2d_0b_3x3')
             tower_conv2_2 = slim.conv2d(tower_conv2_1, 32, 3, scope='Conv2d_0c_3x3')

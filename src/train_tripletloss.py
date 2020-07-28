@@ -148,7 +148,7 @@ def main(args):
         tf.compat.v1.summary.scalar('learning_rate', learning_rate)
 
         # Calculate the total losses
-        regularization_losses = tf.compat.v1.get_collection(tf.GraphKeys.REGULARIZATION_LOSSES)
+        regularization_losses = tf.compat.v1.get_collection(tf.compat.v1.GraphKeys.REGULARIZATION_LOSSES)
         total_loss = tf.add_n([triplet_loss] + regularization_losses, name='total_loss')
 
         # Build a Graph that trains the model with one batch of examples and updates the model parameters

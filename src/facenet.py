@@ -153,7 +153,7 @@ def _add_loss_summaries(total_loss):
     """
     # Compute the moving average of all individual losses and the total loss.
     loss_averages = tf.train.ExponentialMovingAverage(0.9, name='avg')
-    losses = tf.get_collection('losses')
+    losses = tf.compat.v1.get_collection('losses')
     loss_averages_op = loss_averages.apply(losses + [total_loss])
   
     # Attach a scalar summmary to all individual losses and the total loss; do the
@@ -161,8 +161,8 @@ def _add_loss_summaries(total_loss):
     for l in losses + [total_loss]:
         # Name each loss as '(raw)' and name the moving average version of the loss
         # as the original loss name.
-        tf.summary.scalar(l.op.name +' (raw)', l)
-        tf.summary.scalar(l.op.name, loss_averages.average(l))
+        tf.compat.v1.summary.scalar(l.op.name +' (raw)', l)
+        tf.compat.v1.summary.scalar(l.op.name, loss_averages.average(l))
   
     return loss_averages_op
 
@@ -199,12 +199,12 @@ def train(total_loss, global_step, optimizer, learning_rate, moving_average_deca
     if log_histograms:
         for grad, var in grads:
             if grad is not None:
-                tf.summary.histogram(var.op.name + '/gradients', grad)
+                tf.compat.v1.summary.histogram(var.op.name + '/gradients', grad)
   
     # Track the moving averages of all trainable variables.
     variable_averages = tf.train.ExponentialMovingAverage(
         moving_average_decay, global_step)
-    variables_averages_op = variable_averages.apply(tf.trainable_variables())
+    variables_averages_op = variable_averages.apply(tf.compat.v1.trainable_variables())
   
     with tf.control_dependencies([apply_gradient_op, variables_averages_op]):
         train_op = tf.no_op(name='train')
