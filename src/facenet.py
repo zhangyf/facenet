@@ -177,7 +177,7 @@ def train(total_loss, global_step, optimizer, learning_rate, moving_average_deca
         elif optimizer=='ADADELTA':
             opt = tf.train.AdadeltaOptimizer(learning_rate, rho=0.9, epsilon=1e-6)
         elif optimizer=='ADAM':
-            opt = tf.train.AdamOptimizer(learning_rate, beta1=0.9, beta2=0.999, epsilon=0.1)
+            opt = tf.compat.v1.train.AdamOptimizer(learning_rate, beta1=0.9, beta2=0.999, epsilon=0.1)
         elif optimizer=='RMSPROP':
             opt = tf.train.RMSPropOptimizer(learning_rate, decay=0.9, momentum=0.9, epsilon=1.0)
         elif optimizer=='MOM':
@@ -192,8 +192,8 @@ def train(total_loss, global_step, optimizer, learning_rate, moving_average_deca
   
     # Add histograms for trainable variables.
     if log_histograms:
-        for var in tf.trainable_variables():
-            tf.summary.histogram(var.op.name, var)
+        for var in tf.compat.v1.trainable_variables():
+            tf.compat.v1.summary.histogram(var.op.name, var)
    
     # Add histograms for gradients.
     if log_histograms:

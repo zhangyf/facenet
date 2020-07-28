@@ -137,7 +137,7 @@ def inference(images, keep_probability, phase_train=True,
         # force in-place updates of mean and variance estimates
         'updates_collections': None,
         # Moving averages ends up in the trainable variables collection
-        'variables_collections': [ tf.GraphKeys.TRAINABLE_VARIABLES ],
+        'variables_collections': [ tf.compat.v1.GraphKeys.TRAINABLE_VARIABLES ],
     }
     
     with slim.arg_scope([slim.conv2d, slim.fully_connected],
@@ -169,7 +169,7 @@ def inception_resnet_v1(inputs, is_training=True,
     """
     end_points = {}
   
-    with tf.variable_scope(scope, 'InceptionResnetV1', [inputs], reuse=reuse):
+    with tf.compat.v1.variable_scope(scope, 'InceptionResnetV1', [inputs], reuse=reuse):
         with slim.arg_scope([slim.batch_norm, slim.dropout],
                             is_training=is_training):
             with slim.arg_scope([slim.conv2d, slim.max_pool2d, slim.avg_pool2d],
