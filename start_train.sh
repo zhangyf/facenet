@@ -33,7 +33,7 @@ nohup python3 -u src/train_tripletloss.py \
 	--model_def models.inception_resnet_v1 \
 	--optimizer ADAM \
 	--learning_rate -1 \
-	--max_nrof_epochs 10 \
+	--max_nrof_epochs 20 \
 	--epoch_size 500 \
 	--batch_size 90 \
 	--keep_probability 0.8 \
